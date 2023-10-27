@@ -3,6 +3,7 @@ const { Router } = require('express');
 const { caching } = require('./middlewares');
 const SurahHandler = require('./handlers/surah');
 const JuzHandler = require('./handlers/juz');
+const ImageHandler = require('./handlers/image');
 
 const router = Router();
 
@@ -27,6 +28,8 @@ router.get('/', (req, res) => res.status(200).send({
       example: '/juz/30'
     }
   },
+  randomImageQuote: '/random-image-quote',
+  randomImageFunfact: '/random-image-funfact',
   maintaner: 'Sutan Gading Fadhillah Nasution <contact@gading.dev>',
   source: 'https://github.com/gadingnst/quran-api'
 }));
@@ -36,6 +39,9 @@ router.get('/surah', caching, SurahHandler.getAllSurah);
 router.get('/surah/:surah', caching, SurahHandler.getSurah);
 router.get('/surah/:surah/:ayah', caching, SurahHandler.getAyahFromSurah);
 router.get('/juz/:juz', caching, JuzHandler.getJuz);
+
+router.get('/random-image-quote', ImageHandler.getRandomImageQuote);
+router.get('/random-image-funfact', ImageHandler.getRandomImageFunfact);
 
 // fallback router
 router.all('*', (req, res) => res.status(404).send({
