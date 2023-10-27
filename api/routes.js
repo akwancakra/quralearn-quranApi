@@ -47,7 +47,7 @@ router.get('/juz/:juz', caching, JuzHandler.getJuz);
 router.get('/random-image-quote', ImageHandler.getRandomImageQuote);
 router.get('/random-image-funfact', ImageHandler.getRandomImageFunfact);
 
-router.get('/image/:directory/:file', ImageHandler.getImageByFileName);
+router.get('/image/:directory/:file', caching, ImageHandler.getImageByFileName);
 
 // fallback router
 router.all('*', (req, res) => res.status(404).send({
